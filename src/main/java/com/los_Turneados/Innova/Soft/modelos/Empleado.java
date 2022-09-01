@@ -1,8 +1,17 @@
 package com.los_Turneados.Innova.Soft.modelos;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Empleado")
 public class Empleado {
 
+    @Id
+    private int documento;
     private String nombreEmpleado;
     private String correoEmpleado;
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
     private Empresa empresa;
     private String rolEmpleado;
 
@@ -14,6 +23,14 @@ public class Empleado {
     }
 
     public Empleado() {
+    }
+
+    public int getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(int documento) {
+        this.documento = documento;
     }
 
     public String getNombreEmpleado() {
