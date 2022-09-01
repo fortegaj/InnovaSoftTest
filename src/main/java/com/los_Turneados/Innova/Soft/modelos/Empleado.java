@@ -7,7 +7,8 @@ import javax.persistence.*;
 public class Empleado {
 
     @Id
-    private int documento;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id_empleado;
     private String nombreEmpleado;
     private String correoEmpleado;
     @ManyToOne
@@ -25,12 +26,12 @@ public class Empleado {
     public Empleado() {
     }
 
-    public int getDocumento() {
-        return documento;
+    public int getId_empleado() {
+        return id_empleado;
     }
 
-    public void setDocumento(int documento) {
-        this.documento = documento;
+    public void setId_empleado(int id_empleado) {
+        this.id_empleado = id_empleado;
     }
 
     public String getNombreEmpleado() {
