@@ -13,20 +13,20 @@ public class EmpresaService {
     @Autowired
     EmpresaRepository empresaRepository;// Objeto tipo empresa
 
-
-    //Metodo para mostrar la lista de empresas
+    //Metodo para listar las empresas.
     public List<Empresa> getAllEmpresas(){
         List<Empresa> listadoEmpresas = new ArrayList<>();
         empresaRepository.findAll().forEach(empresa -> listadoEmpresas.add(empresa));
         return listadoEmpresas;
     }
 
-    // Metodo que trae la imformacion asignada en e ID
+    // Metodo para traer la informacion a partir del Id.
     public Empresa getEmpresaById(Integer id){
         return empresaRepository.findById(id).get();
     }
 
-    // Metodo para guardar o actualizar objetos de tipo Empresa
+
+    // Metodo para guardar o actualizar objetos de tipo Empresa.
     public boolean updateEmpresa(Empresa empresa){
         Empresa emp = empresaRepository.save(empresa);
         if (empresaRepository.findById(emp.getId())!=null){
@@ -35,6 +35,12 @@ public class EmpresaService {
         return false;
     }
 
-    //Metodo delete pendiente
-
+    //Metodo para eliminar empresas registradas.
+    public boolean deleteEmpresa (Integer id){
+        empresaRepository.deleteById(id);
+        if (getEmpresaById(id)!=null){
+            return false;
+        }
+        return true;
+    }
 }
