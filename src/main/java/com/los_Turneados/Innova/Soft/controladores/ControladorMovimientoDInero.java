@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RequestMapping ("/MovimientoDinero")
 @RestController
 public class ControladorMovimientoDInero {
@@ -34,4 +35,3 @@ public class ControladorMovimientoDInero {
         transaccion.eliminarMovimiento(movimientoDinero.getId_transaccion());
     }
 }
-
