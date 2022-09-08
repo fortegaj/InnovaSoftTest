@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RequestMapping ("/MovimientoDinero")
@@ -20,6 +21,11 @@ public class ControladorMovimientoDInero {
         return transaccion.listar();
     }
 
+    @GetMapping("/{id}")
+    public MovimientoDinero consultarPorId(@PathVariable("id") Integer id){
+        return transaccion.consultarMovimientoPorId(id);
+    }
+
     @PostMapping
     public MovimientoDinero guardar (@RequestBody MovimientoDinero movimientoDinero){
         return transaccion.guardarMovimiento(movimientoDinero);
@@ -30,8 +36,13 @@ public class ControladorMovimientoDInero {
         return transaccion.actualizarMovimientos(movimientoDinero);
     }
 
-    @DeleteMapping
-    public void eliminar (@RequestBody MovimientoDinero movimientoDinero){
-        transaccion.eliminarMovimiento(movimientoDinero.getId_transaccion());
+    @DeleteMapping("/{id}")
+    public void eliminarPorId (@PathVariable("id") Integer id){
+        transaccion.eliminarMovimientoporId(id);
+    }
+
+    @PatchMapping("/{id}")
+    public MovimientoDinero actualizarPorId(@PathVariable ("id") Integer id, @RequestBody Map<Object,Object> objectMap){
+        return transaccion.actualizarPorId(id,objectMap);
     }
 }

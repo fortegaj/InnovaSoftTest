@@ -4,9 +4,12 @@ import com.los_Turneados.Innova.Soft.modelos.MovimientoDinero;
 import com.los_Turneados.Innova.Soft.repositorios.MovimientoDineroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MovimientoDineroService {
@@ -22,7 +25,7 @@ public class MovimientoDineroService {
         return movimientoDinero.save(movimiento);
     }
 
-    public MovimientoDinero consultarMovimientoPorID(Integer id_transaccion){
+    public MovimientoDinero consultarMovimientoPorId(Integer id_transaccion){
         return movimientoDinero.findById(id_transaccion).get();
     }
 
@@ -30,9 +33,18 @@ public class MovimientoDineroService {
         return movimientoDinero.save(movimiento);
     }
 
-    public void eliminarMovimiento(Integer id_transaccion){
+    public void eliminarMovimientoporId(Integer id_transaccion){
         movimientoDinero.deleteById(id_transaccion);
+    }
 
+    public MovimientoDinero actualizarPorId(Integer id, Map<Object,Object> objectMap){
+        MovimientoDinero mov= movimientoDinero.findById(id).get();
+        objectMap.forEach((key,value)-> {
+            Field field = ReflectionUtils.findField(MovimientoDinero.class, (String) key);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, mov, value);
+        });
+        return movimientoDinero.save(mov);
     }
 
 }
